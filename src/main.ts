@@ -50,15 +50,15 @@ process.on('exit', (code) => {
 })
 
 process.on('unhandledRejection', (reason, p) => {
-  console.log('Potential unhandled rejection', p, reason)
+  console.error('Potential unhandled rejection', p, reason)
   process.exit(1)
 })
 
 process.on('uncaughtException', (e) => {
-  console.log('Uncaught exception', e)
+  console.error('Uncaught exception', e)
   process.exit(1)
 })
 
 process.on('warning', (e) => {
-  console.log('warning', e)
+  console.error('warning', e)
 })
