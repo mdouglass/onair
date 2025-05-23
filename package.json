@@ -6,7 +6,7 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "format": "prettier --cache \"{lib,test}/**/*.ts\" --write",
+    "format": "prettier --cache \"{src,test}/**/*.ts\" --write",
     "build": "tsc",
     "dev": "tsx src/main.ts",
     "start": "node dist/main.js"
