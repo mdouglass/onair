@@ -46,3 +46,10 @@ A GitHub actions build script generates the mdouglass/onair image.
 ## Deployment
 
 The onair service (this repository) runs on statler (Synology NAS). Deployments are handled manually through the Synology control panel.
+
+### Environment Variables
+- `DB_PATH`: Path to the SQLite database file. If you don't care about persistent state you can set this to `:memory:` to use an in-memory database that will be lost (effectively performing a `DELETE /onair` on restart). Otherwise, this should be set to the path of a file in a Docker volume mount
+- `HA_URL`: http(s) URL for your Home Assistant
+- `HA_TOKEN`: Home Assistant token
+- `SWITCH_ENTITY`: The switch to toggle when device state changes
+ 
