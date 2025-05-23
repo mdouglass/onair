@@ -1,7 +1,9 @@
+import assert from 'node:assert/strict'
 import { z } from 'zod/v4'
 import express from 'express'
 import { WebError } from '../utils/web-error.js'
 import { deleteAll, getDeviceState, setDeviceState } from '../utils/data.js'
+import { setSwitch } from '../utils/home-assistant.js'
 
 const OnAirRequestSchema = z.object({
   machine: z.string(),
@@ -21,6 +23,13 @@ export async function post(req: express.Request, res: express.Response): Promise
   const body = parseRequestBody(await req.body)
   const result = await setDeviceState(body.machine, body.device, body.state)
   res.ok(result)
+
+  try {
+    assert.ok(process.env.SWITCH_ENTITY, 'SWITCH_ENTITY is not set')
+    await setSwitch(process.env.SWITCH_ENTITY, result.state)
+  } catch (e) {
+    console.error('Error setting switch', (e as Error).message)
+  }
 }
 
 export async function del(_req: express.Request, res: express.Response): Promise<void> {
